@@ -10,7 +10,7 @@ export function isDiscordActivity() {
 
 export function patchUrl(url: string | RequestInfo | URL, prefix = ProxyPrefix): URL {
 	const base = typeof url === 'string' ? window.location.origin : undefined
-	const newUrl = new URL(url.toString(), base)
+	const newUrl = new URL(url instanceof Request ? url.url : url.toString(), base)
 
 	const isProxied = ProxyHosts.some((host) => newUrl.hostname.endsWith(host))
 	if (isProxied && !newUrl.pathname.startsWith(prefix)) {
